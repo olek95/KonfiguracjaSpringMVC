@@ -59,9 +59,9 @@ public class SpittleController {
     @RequestMapping(value="/{spittleId}", method=RequestMethod.GET)
     public String spittle(@PathVariable long spittleId, Model model) {
         Spittle spittle = spittleRepository.findOne(spittleId);
-//        if (spittle == null) {
-//            throw new SpittleNotFoundException(); 
-//        }
+        if (spittle == null) {
+            throw new SpittleNotFoundException(); 
+        }
         model.addAttribute(spittle);
         return "spittle";
     }
