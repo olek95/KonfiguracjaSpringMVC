@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Spittr</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
+    </head>
+    <body>
+        <!-- Atrybut th:object wskazuje na obiekt, którego w³aœciwoœci s¹ potem 
+        pobierane za pomoc¹ *{}. Wartoœæ atrybutu enctype informuje przegl¹darkê 
+        ¿e dane nie maj¹ zostaæ przes³ane w postaci danych formularza, ale jako
+        dane wieloczêœciowe - ka¿de pole bêdzie posiada³o w³asn¹ czêœæ w ¿¹daniu 
+        wieloczêœciowym. -->
+        <form method="POST" th:object="${spitter}" enctype="multipart/form-data">
+            <!-- Atrybut th:if decyduje czy kod zostanie wygenerowany -->
+            <div class="errors" th:if="${#fields.hasErrors('*')}">
+                <ul>
+                    <!-- Atrybut th:each pozwala na iteracyjne wygenerowanie kodu 
+                    HTML. Aktualna wartoœæ jest zapisana w zmiennej err --> 
+                    <li th:each="err: ${#fields.errors('*')}" th:text="${err}">
+                        Dane wejœciowe s¹ niepoprawne 
+                    </li>
+                </ul>
+            </div>
+            <!-- W przeciwieñstwie do JSP w Thymeleaf zamiast atrybutu cssClassName 
+            dla cssów oznaczaj¹cych b³êdy u¿ywa siê th:class na standardowych znacznikach HTML. -->
+            <label th:class="${#fields.hasErrors('firstName')} ? 'error'">Imiê</label>:
+            <!-- Atrybut th:field wi¹¿e pole z w³aœciwoœci¹ firstName obiektu wspieraj¹cego.
+            Do wi¹zania s³u¿y wyra¿enie *{}. Ró¿nica miêdzy ${} a *{} jest taka, ¿e 
+            ${} s¹ wyra¿eniami zmiennych, które normalnie s¹ typu OGNL (w Springu s¹ to 
+            wyra¿enia SpEL). Ich wynikiem jest wartoœæ danego klucza w³aœciwoœci modelu. 
+            Wyra¿enia *{} s¹ wyra¿eniami wyboru. Wyra¿enia zmiennych wyliczane s¹ w ca³ym 
+            kontekœcie SpEL, natomiast wyboru s¹ wyliczane na wybranym obiekcie. -->
+            <input type="text" th:field="*{firstName}" th:class="${#fields.hasErrors('firstName')} ? 'error'" /><br/>
+            <label th:class="${#fields.hasErrors('lastName')} ? 'error'">Nazwisko</label>:
+            <input type="text" th:field="*{lastName}" th:class="${#fields.hasErrors('lastName')} ? 'error'" /><br/>
+            <label th:class="${#fields.hasErrors('email')} ? 'error'">Adres e-mail</label>:
+            <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')} ? 'error'" /><br/>
+            <label th:class="${#fields.hasErrors('username')} ? 'error'">Nazwa u¿ytkownika</label>:
+            <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username')} ? 'error'" /><br/>
+            <label th:class="${#fields.hasErrors('password')} ? 'error'">Has³o</label>:
+            <input type="text" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'error'" /><br/>
+            <label>Profile Picture</label>
+            <!-- Zgodnie z atrybutem name dane obrazu przes³ane zostan¹ w ¿¹daniu 
+            wieloczêœciowym w czêœci o nazwie profilePicture --> 
+            <input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /><br/>
+            <input type="submit" value="Zarejestruj" />
+        </form>
+    </body>
+</html>

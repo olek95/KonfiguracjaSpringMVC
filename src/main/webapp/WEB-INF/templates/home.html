@@ -1,0 +1,16 @@
+<!-- deklaracja przestrzeni nazw Thymeleaf -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
+    <head>
+        <title>Spittr</title>
+        <!-- ³¹cze th:href do arkuasza stylów -->
+        <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
+    </head>
+    <body>
+        <h1>Witamy w aplikacji Spittr</h1>
+        <!-- ³¹cza do stron. Atrybut th:href przypomina zwyk³y atrybut HTML href.
+        Umo¿liwia jednak wykorzystanie wyra¿eñ Thymeleaf umo¿liwiaj¹cych dynamiczne 
+        wyliczanie wartoœci. --> 
+        <a th:href="@{/spittles}">Spittle</a>
+        <a th:href="@{/spitter/register}">Zarejestruj</a>
+    </body>
+</html>
