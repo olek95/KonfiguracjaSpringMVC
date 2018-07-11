@@ -72,7 +72,7 @@ public class SpittleController {
     @RequestMapping(method=RequestMethod.POST)
     public String saveSpittle(SpittleForm form, Model model) {
         List<Spittle> spittles = spittleRepository.findSpittles(Long.MAX_VALUE, Integer.MAX_VALUE);
-        spittleRepository.save(new Spittle(spittles.get(spittles.size() - 1).getId() + 1, form.getMessage(), new Date(), 
+        spittleRepository.save(new Spittle(1l, form.getMessage(), new Date(), 
                 form.getLongitude(), form.getLatitude()));
         return "redirect:/spittles";
     }
@@ -81,9 +81,10 @@ public class SpittleController {
     w dowolnej metodzie obs³ugi ¿¹dania zdefiniowanej w tym samym kontrolerze. 
     Dziêki temu zamiast dawaæ try-catch w ka¿dej metodzie która mo¿e rzuciæ wyj¹tek, 
     wystarczy go przechwycic w jednej uniwersalnej. Dziêki temu metoda bêdzie mniej 
-    z³o¿ona gdy¿ oddzielamy prawid³owe wyjœcie z metody od wyjœcia rzucaj¹cego wyj¹tek. */
-    @ExceptionHandler(DuplicateSpittleException.class)
+    z³o¿ona gdy¿ oddzielamy prawid³owe wyjœcie z metody od wyjœcia rzucaj¹cego wyj¹tek. 
+    Dziêki obs³u¿eniu wyj¹tku, strona nie wyrzuci kodu b³êdu. */
+    /*@ExceptionHandler(DuplicateSpittleException.class)
     public String handleDuplicateSpittle() {
         return "error/duplicate";
-    }
+    }*/ 
 }
