@@ -21,7 +21,7 @@ import spittr.web.SpitterController;
 import spittr.web.SpittleController;
 
 public class HomeControllerTest {
-    //@Test
+    @Test
     public void testHomePage() throws Exception {
         HomeController controller = new HomeController();
         //assertEquals("home", controller.home()); // ten test sprawdza jedynie zwracany tekst
@@ -32,7 +32,7 @@ public class HomeControllerTest {
         mockMvc.perform(get("")).andExpect(view().name("home"));
     }
     
-    //@Test
+    @Test
     public void shouldShowRecentSpittles() throws Exception {
         List<Spittle> expectedSpittles = createSpittleList(20); 
         // tworzy atrapê repozytorium 
@@ -57,7 +57,7 @@ public class HomeControllerTest {
                 .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
     }
     
-    //@Test 
+    @Test 
     public void shouldShowPagedSpittles() throws Exception {
         List<Spittle> expectedSpittles = createSpittleList(50); 
         SpittleRepository mockRepository = mock(SpittleRepository.class); 
@@ -70,7 +70,7 @@ public class HomeControllerTest {
                         hasItems(expectedSpittles.toArray())));   
     }
     
-    //@Test
+    @Test
     public void testSpittle() throws Exception {
         Spittle expectedSpittle = new Spittle("Hello", new Date());
         SpittleRepository mockRepository = mock(SpittleRepository.class);
@@ -82,7 +82,7 @@ public class HomeControllerTest {
                 .andExpect(model().attributeExists("spittle")).andExpect(model().attribute("spittle", expectedSpittle));
     }
     
-    // @Test 
+    @Test 
     public void shouldShowRegistration() throws Exception {
         SpitterController controller = new SpitterController(); 
         MockMvc mockMvc = standaloneSetup(controller).build(); 

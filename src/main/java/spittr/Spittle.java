@@ -15,19 +15,20 @@ public class Spittle {
         this(message, time, null, null); 
     }
     
-    // Dodane w celu zmockowania Spittlów w SpittleRepositoryDAO
-    public Spittle(Long id, String message, Date time) {
-        this.id = id; 
-        this.message = message; 
-        this.time = time; 
-    }
-    
     public Spittle(String message, Date time, Double longitude, Double latitude) {
         this.id = null; 
         this.message = message; 
         this.time = time; 
         this.longitude = longitude; 
         this.latitude = latitude; 
+    }
+    
+    public Spittle(Long id, String message, Date time, Double longitude, Double latitude) {
+        this.id = id;
+        this.message = message; 
+        this.time = time; 
+        this.longitude = longitude; 
+        this.latitude = latitude;
     }
     
     public long getId() {

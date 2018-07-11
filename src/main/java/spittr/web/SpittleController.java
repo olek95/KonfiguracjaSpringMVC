@@ -1,15 +1,18 @@
 package spittr.web;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import spittr.Spittle;
+import spittr.SpittleForm;
 import spittr.data.SpittleRepository;
 
 @Controller
@@ -64,5 +67,23 @@ public class SpittleController {
         }
         model.addAttribute(spittle);
         return "spittle";
+    }
+    
+    @RequestMapping(method=RequestMethod.POST)
+    public String saveSpittle(SpittleForm form, Model model) {
+        List<Spittle> spittles = spittleRepository.findSpittles(Long.MAX_VALUE, Integer.MAX_VALUE);
+        spittleRepository.save(new Spittle(spittles.get(spittles.size() - 1).getId() + 1, form.getMessage(), new Date(), 
+                form.getLongitude(), form.getLatitude()));
+        return "redirect:/spittles";
+    }
+    
+    /* Adnotacja ExceptionHandler pozwala na przechwytywanie wyj¹tków wyrzuconych 
+    w dowolnej metodzie obs³ugi ¿¹dania zdefiniowanej w tym samym kontrolerze. 
+    Dziêki temu zamiast dawaæ try-catch w ka¿dej metodzie która mo¿e rzuciæ wyj¹tek, 
+    wystarczy go przechwycic w jednej uniwersalnej. Dziêki temu metoda bêdzie mniej 
+    z³o¿ona gdy¿ oddzielamy prawid³owe wyjœcie z metody od wyjœcia rzucaj¹cego wyj¹tek. */
+    @ExceptionHandler(DuplicateSpittleException.class)
+    public String handleDuplicateSpittle() {
+        return "error/duplicate";
     }
 }
