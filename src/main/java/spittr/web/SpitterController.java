@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller 
 @RequestMapping("/spitter")
@@ -77,24 +78,46 @@ public class SpitterController {
     komponentu StandardServletMultipartResolver w przeciwieñstwie do MultipartFile. */ 
     @RequestMapping(value="/register", method=POST)
     public String processRegistration(@RequestPart("profilePicture") Part profilePicture,
-            @Valid Spitter spitter, Errors errors) throws IOException {
+            @Valid Spitter spitter, RedirectAttributes model, Errors errors) throws IOException {
         if (errors.hasErrors()) {
             return "registerForm";
         }
-        spitterRepository.save(spitter); 
+        spitterRepository.save(spitter);
+        /* Do modelu przekazywana jest wartoœæ która zastêpuje symbol zastêpczy w zwracanym adresie.
+        Ze wzglêdu na u¿ycie atrybutów jednorazowych u¿yto tu klasê RedirectAttributes, ale 
+        wystarczaj¹cy Model */
+        model.addAttribute("username", spitter.getUsername());
+        /* Umo¿liwia ustawienie atrybutu jednorazowego. Normalnie wartoœci z modelu 
+        s¹ usuwanie podczas przekierowywania, jednak¿e atrybuty jednorazowe umo¿liwiaj¹
+        zapisane atrybutu do sesji, odczytanie go po przekierowaniu a nastêpne 
+        automatycznemu usunieciu ze sesji. */
+        model.addFlashAttribute("spitter", spitter);
         /* Metoda getSubmittedFileName odpowiada metodzie getOriginalFilename 
         klasy MultipartFile, co pozwala na pobranie oryginalnej nazwy pliku. 
         Natomiast metoda write odpowiada metodzie transferTo, co pozwala na zapis pliku.
         Podana œcie¿ka bêdzie siê zaczynaæ w miejscu podanym podczas konfiguracji 
         MultipartConfigElement przy u¿yciu metody setMultipartConfig. */
         profilePicture.write("/data/spittr/" + profilePicture.getSubmittedFileName());
-        return "redirect:/spitter/" + spitter.getUsername();
+        /* Redirect umo¿liwia przekierowanie do nowej strony, dziêki temu blokuje to 
+        mo¿liwoœæ np. ponownego wys³ania formularza. */
+        //return "redirect:/spitter/" + spitter.getUsername();
+        /* Konkatenacja podczas tworzenia adresów jest niebezpieczna. Dlatego 
+        lepiej u¿ywaæ szablonów. Aby zast¹piæ symbol zastêpczy w adresie, nale¿y 
+        przekazaæ wartoœæ do obiektu Modelu. Niebezpieczne znaki s¹ poddawane 
+        eskejpowaniu, gdy¿ string nie jest bezpoœrednio dodawany. W przypadku gdy 
+        ustawi siê wartoœæ w Modelu, ale nie bêdzie symbolu zastêpczego, bêdzie ona 
+        ustawiona jako parametr zapytania np. ?zmienna=42. */
+        return "redirect:/spitter/{username}";
     }
     
     @RequestMapping(value="/{username}", method=GET)
     public String showSpitterProfile(@PathVariable String username, Model model) {
-        Spitter spitter = spitterRepository.findByUsername(username); 
-        model.addAttribute(spitter);
+        /* sprawdza czy w modelu istnieje ju¿ atrybut o nazwie spitter np. przekazany 
+        jako atrybut jednorazowy za pomoc¹ klasy RedirectAttributes. Jeœli nie, 
+        dodaje dane do modelu. */
+        if (!model.containsAttribute("spitter")) {
+            model.addAttribute(spitterRepository.findByUsername(username));
+        }
         return "profile";
     }
 }

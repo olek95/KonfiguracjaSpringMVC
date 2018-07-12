@@ -72,7 +72,7 @@ public class SpittleController {
     @RequestMapping(method=RequestMethod.POST)
     public String saveSpittle(SpittleForm form, Model model) {
         List<Spittle> spittles = spittleRepository.findSpittles(Long.MAX_VALUE, Integer.MAX_VALUE);
-        spittleRepository.save(new Spittle(1l, form.getMessage(), new Date(), 
+        spittleRepository.save(new Spittle(spittles.get(spittles.size() - 1).getId() + 1, form.getMessage(), new Date(), 
                 form.getLongitude(), form.getLatitude()));
         return "redirect:/spittles";
     }
