@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="HomeControllerTest" time="1.181" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="HomeControllerTest" time="1.278" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_131\jre\bin"/>
@@ -62,10 +62,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="HomeControllerTest" name="shouldShowRegistration" time="0.811"/>
-  <testcase classname="HomeControllerTest" name="shouldShowPagedSpittles" time="0.224"/>
+  <testcase classname="HomeControllerTest" name="shouldShowRegistration" time="0.787"/>
+  <testcase classname="HomeControllerTest" name="shouldShowPagedSpittles" time="0.274"/>
   <testcase classname="HomeControllerTest" name="shouldProcessRegistration" time="0"/>
-  <testcase classname="HomeControllerTest" name="testHomePage" time="0"/>
-  <testcase classname="HomeControllerTest" name="shouldShowRecentSpittles" time="0.018"/>
-  <testcase classname="HomeControllerTest" name="testSpittle" time="0.034"/>
+  <testcase classname="HomeControllerTest" name="testHomePage" time="0.014"/>
+  <testcase classname="HomeControllerTest" name="shouldShowRecentSpittles" time="0.017"/>
+  <testcase classname="HomeControllerTest" name="testSpittle" time="0.053"/>
 </testsuite>
