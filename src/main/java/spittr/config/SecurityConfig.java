@@ -73,9 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         metoda anyRequest i permitAll mówi¹ ¿e wszystkie inne ¿¹dania maj¹ byæ 
         dostêpne bez uwierzytelnienia i uprawnieñ. Aby do okreslenia nazwy ¿adania 
         u¿yæ wyra¿enia regularnego nale¿y zastosowaæ metodê regexMatchers. 
-        */
+        Aby wymusiæ skorzystanie url-a z kana³u zaszyfrowanego (HTTPS), nale¿y 
+        zastosowaæ metodê requiresChannel a nastêpnie requiresSecure na wybranym 
+        adresie. Dziêki temu przesy³ane informacje bêd¹ zaszyfrowane. Natomiast 
+        metoda requiresInsecure powoduje przesy³anie ¿¹dañ zawsze przez kana³ HTTP. */
         http.authorizeRequests().antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll().and().requiresChannel()
+                .antMatchers("/spitter/form").requiresSecure().antMatchers("/")
+                .requiresInsecure();
     }
 }
