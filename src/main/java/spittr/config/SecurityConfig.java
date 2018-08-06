@@ -63,7 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     /* Metoda configure z parametrem HttpSecurity umo¿liwia przechwytywanie (zabezpieczanie)
-    ¿¹dañ. Decyduje które ¿¹dania wymagaj¹ uwierzytelnienia, a które nie. */
+    ¿¹dañ. Decyduje które ¿¹dania wymagaj¹ uwierzytelnienia, a które nie. Po 
+    nadpisaniu tej metody traci siê dostêp do domyœlnej strony logowania. */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         /* AuthorizeRequests umo¿liwia konfiguracjê szczegó³ów zabezpieczeñ na 
@@ -76,8 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Aby wymusiæ skorzystanie url-a z kana³u zaszyfrowanego (HTTPS), nale¿y 
         zastosowaæ metodê requiresChannel a nastêpnie requiresSecure na wybranym 
         adresie. Dziêki temu przesy³ane informacje bêd¹ zaszyfrowane. Natomiast 
-        metoda requiresInsecure powoduje przesy³anie ¿¹dañ zawsze przez kana³ HTTP. */
-        http.authorizeRequests().antMatchers("/spitters/me").authenticated()
+        metoda requiresInsecure powoduje przesy³anie ¿¹dañ zawsze przez kana³ HTTP. 
+        Metoda formLogin w³¹cza domyœln¹ stronê logowania. */
+        http.formLogin().and().authorizeRequests().antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
                 .anyRequest().permitAll().and().requiresChannel()
                 .antMatchers("/spitter/form").requiresSecure().antMatchers("/")

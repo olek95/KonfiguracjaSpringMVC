@@ -12,6 +12,14 @@
                     <input type="hidden" name="longitude" />
                     <textarea name="message" cols="80" rows="5">
                     </textarea><br/>
+                    <!-- To pole pozwala na zabezpieczenie przed atakami CSRF, które 
+                    polegaj¹ na wywo³ywaniu ¿adania z innej strony. Polega ono na tym 
+                    ¿e ¿¹dania zmieniajace stan np. POST, s¹ sprawdzane pod katem 
+                    poprawnoœci tokena CSRF. Oznacza to ¿e wszystkie formularze 
+                    musz¹ przesy³aæ token w polu _csrf. Mo¿na wy³¹czyæ zabezpieczenia 
+                    CSRF poprzez wywo³anie csrf().disable() w configure(HttpSecurity)--> 
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
                     <input type="submit" value="Add" />
                 </form>
             </div>
