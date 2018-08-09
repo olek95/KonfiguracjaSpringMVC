@@ -6,7 +6,6 @@ csrf, poniewa¿ zostanie dodany automatycznie -->
         <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
     </head>
     <body onload="document.f.username.focus();">
-        <div id="header" th:include="page :: header"></div>
         <div id="content">
             <form name="f" th:action="@{/login}" method="POST">
                 <table>
@@ -26,6 +25,5 @@ csrf, poniewa¿ zostanie dodany automatycznie -->
                 </table>
             </form>
         </div>
-        <div id="footer" th:include="page :: copy"></div>
     </body>
 </html>

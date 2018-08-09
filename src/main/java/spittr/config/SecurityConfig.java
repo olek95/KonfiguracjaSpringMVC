@@ -78,8 +78,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         zastosowaæ metodê requiresChannel a nastêpnie requiresSecure na wybranym 
         adresie. Dziêki temu przesy³ane informacje bêd¹ zaszyfrowane. Natomiast 
         metoda requiresInsecure powoduje przesy³anie ¿¹dañ zawsze przez kana³ HTTP. 
-        Metoda formLogin w³¹cza domyœln¹ stronê logowania. */
-        http.formLogin().and().authorizeRequests().antMatchers("/spitters/me").authenticated()
+        Metoda formLogin w³¹cza domyœln¹ stronê logowania. Aby u¿yæ w³asnej strony 
+        logowania nale¿y u¿yæ metody loginPage do której podaje siê url strony. 
+        Aby w³¹czyæ uwierzytelnienie HTTP Basic trzeba wywo³aæ httpBasic. Polega ono 
+        na pojawieniu siê okna dialogowego z proœb¹ o podanie danych logowania. 
+        Mo¿na te¿ okreœliæ domenê poprzez ustawienie realmName. */
+        http.formLogin().loginPage("/login").and().httpBasic().realmName("Spittr")
+                .and().authorizeRequests().antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
                 .anyRequest().permitAll().and().requiresChannel()
                 .antMatchers("/spitter/form").requiresSecure().antMatchers("/")
