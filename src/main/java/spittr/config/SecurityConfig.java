@@ -83,8 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Aby w³¹czyæ uwierzytelnienie HTTP Basic trzeba wywo³aæ httpBasic. Polega ono 
         na pojawieniu siê okna dialogowego z proœb¹ o podanie danych logowania. 
         Mo¿na te¿ okreœliæ domenê poprzez ustawienie realmName. */
-        http.formLogin().loginPage("/login").and().httpBasic().realmName("Spittr")
-                .and().authorizeRequests().antMatchers("/spitters/me").authenticated()
+        http.formLogin().loginPage("/login").and().rememberMe().tokenValiditySeconds(2419200)
+                .key("spittrKey").and().httpBasic().realmName("Spittr").and()
+                .authorizeRequests().antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
                 .anyRequest().permitAll().and().requiresChannel()
                 .antMatchers("/spitter/form").requiresSecure().antMatchers("/")
