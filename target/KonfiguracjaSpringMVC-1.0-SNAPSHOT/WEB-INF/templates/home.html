@@ -12,5 +12,13 @@
         wyliczanie wartoœci. --> 
         <a th:href="@{/spittles}">Spittle</a>
         <a th:href="@{/spitter/register}">Zarejestruj</a>
+        <!-- Mo¿liwoœæ wylogowywania jest automatycznie w³aczona w konfiguracji. 
+        Wystarczy tylko dodaæ poni¿sze ³¹cze przekierowuj¹ce na adres /logout (domyœlnie). 
+        Po wylogowaniu przegl¹darka przekierowuje domyœlnie na adres /login?logout aby 
+        umo¿liwiæ ponowne zalogowanie --> 
+        <!--<form name="f" th:action="@{/logout}" method="POST">  -->
+        <form name="f" th:action="@{/signout}" method="POST">
+            <input name="submit" type="submit" value="Wyloguj sie"/>
+        </form>
     </body>
 </html>

@@ -82,10 +82,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         logowania nale¿y u¿yæ metody loginPage do której podaje siê url strony. 
         Aby w³¹czyæ uwierzytelnienie HTTP Basic trzeba wywo³aæ httpBasic. Polega ono 
         na pojawieniu siê okna dialogowego z proœb¹ o podanie danych logowania. 
-        Mo¿na te¿ okreœliæ domenê poprzez ustawienie realmName. */
+        Mo¿na te¿ okreœliæ domenê poprzez ustawienie realmName. Aby w³¹czyæ funkcjê 
+        pamiêtaj¹c¹ zalogowanego u¿ytkownika, nale¿y wywo³aæ metodê rememberMe. 
+        Metoda tokenValiditySeconds okresla liczbê sekund przez które bêdzie pamiêtane 
+        ciasteczko z danymi logowania (domyœlnie 2 tygodnie). Mo¿na te¿ okreœliæ 
+        nazwê klucza prywatnego przechowywanego w ciasteczku za pomoc¹ key(). Domyœlnie
+        klucz to SpringSecured. Metoda logout() udostêpnia metody konfiguracji 
+        zachowania w trakcie wylogowywania. LogoutSuccessUrl wskazuje url na który
+        u¿ytkownik jest przekierowany po wylogowaniu, natomiast logoutUrl nadpisuje 
+        œcie¿kê ¿adania wylogowania. */
         http.formLogin().loginPage("/login").and().rememberMe().tokenValiditySeconds(2419200)
-                .key("spittrKey").and().httpBasic().realmName("Spittr").and()
-                .authorizeRequests().antMatchers("/spitters/me").authenticated()
+                .key("spittrKey").and().logout().logoutSuccessUrl("/").logoutUrl("/signout")
+                .and().httpBasic().realmName("Spittr").and().authorizeRequests()
+                .antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
                 .anyRequest().permitAll().and().requiresChannel()
                 .antMatchers("/spitter/form").requiresSecure().antMatchers("/")
