@@ -1,6 +1,7 @@
 package spittr.config;
 
 import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -121,6 +123,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // silnik przetwarzaj¹cy szablony i generuj¹cy wyniki 
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolveer);
+        /* rejestruje dialekt bezpieczeñstwa dla szablonów Thymeleaf. Umo¿liwia 
+        to korzystanie ze znaczników takich jak np. authorize */
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
     

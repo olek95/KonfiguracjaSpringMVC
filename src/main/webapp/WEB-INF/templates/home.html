@@ -1,5 +1,6 @@
 <!-- deklaracja przestrzeni nazw Thymeleaf -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> 
     <head>
         <title>Spittr</title>
         <!-- ³¹cze th:href do arkuasza stylów -->
@@ -20,5 +21,17 @@
         <form name="f" th:action="@{/signout}" method="POST">
             <input name="submit" type="submit" value="Wyloguj sie"/>
         </form>
+        <!-- authorize wyœwietla wartoœæ znacznika jeœli spe³niony jest podany 
+        warunek bezpieczeñstwa. W tym przypadku sprawdza czy mamy zalogowanego 
+        u¿ytkownika. -->
+        <div sec:authorize="isAuthenticated()">
+            <!-- generuje w³aœciwoœæ obiektu uwierzytelnienia - tutaj jego login --> 
+            Witaj <span sec:authentication="name">ktosiu</span>
+        </div>
+        <!-- Wyœietla znacznik url tylko, jeœli warunki bezpieczeñstwa dla tego znacznika 
+        z SecurityConfig zwróc¹ true --> 
+        <span sec:authorize-url="/admin">
+            <br/><a th:href="@{/admin}">Administrator</a>
+        </span>
     </body>
 </html>

@@ -90,12 +90,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         klucz to SpringSecured. Metoda logout() udostêpnia metody konfiguracji 
         zachowania w trakcie wylogowywania. LogoutSuccessUrl wskazuje url na który
         u¿ytkownik jest przekierowany po wylogowaniu, natomiast logoutUrl nadpisuje 
-        œcie¿kê ¿adania wylogowania. */
+        œcie¿kê ¿adania wylogowania. Metoda access udostêpnia dostêp jeœli wartoœci¹
+        podanego wyra¿enia SpEL bêdzie true. */
         http.formLogin().loginPage("/login").and().rememberMe().tokenValiditySeconds(2419200)
                 .key("spittrKey").and().logout().logoutSuccessUrl("/").logoutUrl("/signout")
                 .and().httpBasic().realmName("Spittr").and().authorizeRequests()
                 .antMatchers("/spitters/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
+                .antMatchers("/admin").access("isAuthenticated()")
                 .anyRequest().permitAll().and().requiresChannel()
                 .antMatchers("/spitter/form").requiresSecure().antMatchers("/")
                 .requiresInsecure();
