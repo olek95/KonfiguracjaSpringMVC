@@ -1,14 +1,14 @@
-spittr\data\SpittleRepository.class
 spittr\config\WebConfig.class
+spittr\web\SpitterApplication.class
+spittr\config\SpittrWebAppInitializer.class
+spittr\data\SpittleRepository.class
 spittr\web\SpitterController.class
 spittr\Spittle.class
 spittr\dao\SpittleRepositoryDAO.class
 spittr\web\HomeController.class
-spittr\web\SpitterApplication.class
 spittr\web\SpittleController.class
 spittr\dao\SpitterRepositoryDAO.class
 spittr\data\SpitterRepository.class
 spittr\Spitter.class
-spittr\config\SpittrWebAppInitializer.class
 spittr\config\RootConfig.class
 spittr\web\SpittleNotFoundException.class

@@ -1,6 +1,7 @@
 package spittr.config;
 
 import java.io.IOException;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -120,7 +121,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     
     @Bean 
     public SpringTemplateEngine templateEngine(TemplateResolver templateResolveer) {
-        // silnik przetwarzaj¹cy szablony i generuj¹cy wyniki 
+        // silnik przetwarzaj¹cy szablony i generuj¹cy wyniki
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolveer);
         /* rejestruje dialekt bezpieczeñstwa dla szablonów Thymeleaf. Umo¿liwia 
