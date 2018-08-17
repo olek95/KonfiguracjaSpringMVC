@@ -13,12 +13,12 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Configuration 
 // W³¹cza ustawienia bezpieczeñstwa. 
-@EnableWebSecurity
+//@EnableWebSecurity
 /* W Spring MVC mo¿na u¿yæ poni¿szej adnotacji. Jednym z jej zadañ jest konfiguracja 
 rozwi¹zywania argumentów, aby metoda obs³ugi ¿adania uzyska³a dostêp do danch 
 uwierzytelniania u¿ytkownika. Konfiguruje te¿ komponenty, które automatycznie dodaj¹ 
 do formularzy ukryte pola tokenów CSRF. */
-//@EnableWebMvcSecurity
+@EnableWebMvcSecurity
 /* Konfiguracja Spring Security musi siê znaleŸæ w komponencie implementuj¹cym 
 interfejs WebSecurityConfigurer lub rozszerzaj¹cym klasê WebSecurityConfigurerAdapter.
 Posiada on nastêpuj¹ce metody do nadpisania: configure(WebSecurity) - konfiguracja 

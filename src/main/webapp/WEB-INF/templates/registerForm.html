@@ -9,7 +9,8 @@
         ¿e dane nie maj¹ zostaæ przes³ane w postaci danych formularza, ale jako
         dane wieloczêœciowe - ka¿de pole bêdzie posiada³o w³asn¹ czêœæ w ¿¹daniu 
         wieloczêœciowym. -->
-        <form method="POST" th:object="${spitter}" enctype="multipart/form-data">
+        <form method="POST" th:object="${spitter}" enctype="multipart/form-data" 
+              th:action="@{/spitter/register}  + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}">
             <!-- Atrybut th:if decyduje czy kod zostanie wygenerowany -->
             <div class="errors" th:if="${#fields.hasErrors('*')}">
                 <ul>
