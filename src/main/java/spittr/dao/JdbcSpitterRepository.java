@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
@@ -30,7 +31,8 @@ public class JdbcSpitterRepository implements SpitterRepository {
         wartoœci które bêd¹ podstawiane (wi¹zane) pod znak ? w zapytaniu. Metoda ta
         zawiera powtarzaj¹ce siê fragmenty kodu np. tworzenie po³¹czenia, obs³uga wyj¹tków, 
         wiec nie trzeba tego kodu powtarzaæ. */
-        jdbcOperations.update(SQL_INSERT_SPITTER, spitter.getUsername(), spitter.getPassword(),
+        jdbcOperations.update(SQL_INSERT_SPITTER, spitter.getUsername(), 
+                new StandardPasswordEncoder("53Kr3t").encode(spitter.getPassword()),
                 spitter.getFirstName(), spitter.getLastName(), spitter.getEmail());
         return spitter; 
     }

@@ -26,8 +26,8 @@ Posiada on nastêpuj¹ce metody do nadpisania: configure(WebSecurity) - konfigurac
 configure(AuthenticationManagerBuilder) - konfiguracja us³ug szczegó³ów u¿ytkownika. 
 Domyœlna implementacja 2 wersji blokuje przed jakimkolwiek wejœciem do aplikacji. */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //@Autowired 
-    //DataSource dataSource; 
+    @Autowired 
+    DataSource dataSource; 
     
     @Override
     /* KLasa AuthenticationManagerBuilder udostêpnia kilka metod umo¿liwiaj¹cych 
@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         podobna metoda - authorities w której role przydziela siê poprzedzaj¹c je 
         prefiksem ROLE_ np. ROLE_USER. Konfiguracje ustawieñ poszczególnych 
         u¿ytkowników rozdzielone s¹ za pomoc¹ metody and. */
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
-                .and().withUser("admin").password("password").roles("USER", "ADMIN");
+        /* auth.inMemoryAuthentication().withUser("user").password("password").roles("USER")
+                .and().withUser("admin").password("password").roles("USER", "ADMIN"); */
         /* Do konfiguracji uwierzytelnienia z wykorzystaniem bazy JDBC mo¿na 
         zastosowaæ metodê jdbcAuthentication. Za pomoc¹ dataSource nale¿y podaæ 
         Ÿród³o danych. Jeœli domyœlnie u¿ywane zapytania nie s¹ wystarczaj¹ce, 
@@ -56,10 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         nalezy nadpisaæ metody encode i matches. Has³a w bazie nigdy nie s¹ odszyfrowywane, 
         zamiast tego szyfrowane s¹ has³¹ wprowadzone przez u¿ytkownika i takie has³o 
         jest porównywane z has³em z bazy za pomoc¹ matches. */
-        /*auth.jdbcAuthentication().dataSource(dataSource)
+        auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, true from Spitter where username=?")
                 .authoritiesByUsernameQuery("select username, 'ROLE_USER' from Spitter where username=?")
-                .passwordEncoder(new StandardPasswordEncoder("53Kr3t"));*/
+                .passwordEncoder(new StandardPasswordEncoder("53Kr3t"));
     }
     
     /* Metoda configure z parametrem HttpSecurity umo¿liwia przechwytywanie (zabezpieczanie)
