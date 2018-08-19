@@ -43,7 +43,17 @@ public class JdbcSpitterRepository implements SpitterRepository {
         ³añcuch znaków z poleceniem pobieraj¹cym dane, drugi parametr to RowMapper 
         wydobywaj¹cy wartoœci z ResultSet, natomiast ostatni to zmienna lista argumentów
         podstawianych pod znak ?. */
-        return jdbcOperations.queryForObject(SQL_SELECT_SPITTER, new SpitterRowMapper(), username); 
+        //return jdbcOperations.queryForObject(SQL_SELECT_SPITTER, new SpitterRowMapper(), username);
+        /* Interfejs RowMapper deklaruje tylko jedn¹ metodê wiêc jest interfejsem 
+        funkcyjnym, a wiêc w Javie 8 mo¿na zamiast implementacji klasy zapisaæ t¹
+        metodê w postaci lambdy */
+        /*return jdbcOperations.queryForObject(SQL_SELECT_SPITTER, (rs, rowNum) -> {
+            return new Spitter(rs.getLong("id"), rs.getString("username"), rs.getString("password"), 
+                    rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
+        }, username);*/
+        /* W Javie 8 mo¿na tak¿e u¿yæ odwo³ania do metody i zdefiniowaæ mapowanie 
+        w osobnej metodzie. */
+        return jdbcOperations.queryForObject(SQL_SELECT_SPITTER, this::mapSpitter, username);
     }
     
     private static final class SpitterRowMapper implements RowMapper<Spitter> {
@@ -55,5 +65,12 @@ public class JdbcSpitterRepository implements SpitterRepository {
             return new Spitter(rs.getLong("id"), rs.getString("username"), rs.getString("password"), 
                     rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
         }
+    }
+    
+    /* Aby móc siê odwo³aæ do tej metody w queryForObject musi ona posiadaæ te same 
+    parametry i zwracaæ ten sam typ co mapRow */
+    private Spitter mapSpitter(ResultSet rs, int row) throws SQLException {
+        return new Spitter(rs.getLong("id"), rs.getString("username"), rs.getString("password"), 
+                    rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"));
     }
 }
