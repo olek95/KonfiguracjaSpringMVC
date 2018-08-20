@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
@@ -33,9 +34,17 @@ public class DataSourceConfiguration {
     najbardziej podstawowym szablonem, który zapewnia prosty dostêp do bazy danych i 
     zapytania z indeksowanymi parametrami. Oprócz tej klasy istniej¹ te¿: 
     NamedParameterJdbcTemplate oraz SimpleJdbcTemplate. */
-    @Bean
+    /*@Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         // jdbctemplate potrzebuje do dzia³ania Ÿród³a danych 
         return new JdbcTemplate(dataSource); 
+    }*/
+    
+    /* Ten szablon umo¿liwia u¿ywanie parametrów nazwanych. Oznacza to ¿e nie 
+    trzeba pamiêtaæ kolejnoœci parametrów tak jak w zwyk³ym JdbcTemplate podczas
+    odwo³ywania siê za pomoc¹ ?, tylko mo¿na odwo³aæ siê do nich za pomoc¹ nazwy. */
+    @Bean
+    public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
     }
 }
