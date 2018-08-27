@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RequestPart;
-import spittr.Spitter;
+import spittr.domain.Spitter;
 import spittr.data.SpitterRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import spittr.dao.HibernateSpitterRepository;
 
 @Controller 
 @RequestMapping("/spitter")
@@ -24,7 +25,7 @@ public class SpitterController {
     private SpitterRepository spitterRepository; 
     
     @Autowired 
-    public SpitterController(SpitterRepository spitterRepository) {
+    public SpitterController(HibernateSpitterRepository spitterRepository) {
         this.spitterRepository = spitterRepository;
     }
     

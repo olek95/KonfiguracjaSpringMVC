@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import spittr.Spitter;
+import spittr.domain.Spitter;
 import spittr.data.SpitterRepository;
 
 /* Interfejsy reprezentuj¹ce repozytoria musz¹ mieæ swoj¹ implementacjê oraz byæ 

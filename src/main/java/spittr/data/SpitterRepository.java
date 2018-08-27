@@ -1,6 +1,6 @@
 package spittr.data;
 
-import spittr.Spitter;
+import spittr.domain.Spitter;
 
 public interface SpitterRepository {
     Spitter save(Spitter spitter);

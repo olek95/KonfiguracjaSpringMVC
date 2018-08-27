@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import org.springframework.web.servlet.view.InternalResourceView;
-import spittr.Spitter;
+import spittr.domain.Spitter;
 import spittr.Spittle;
 import spittr.data.SpitterRepository;
 import spittr.data.SpittleRepository;

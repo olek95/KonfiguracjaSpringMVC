@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import spittr.domain.Spitter;
 
 @Configuration
 public class DataSourceConfiguration {
@@ -64,8 +65,9 @@ public class DataSourceConfiguration {
         sfb.setDataSource(dataSource);
         /* Ustawia pakiety w których poszukiwane s¹ klasy oznaczone jako utrwalane 
         przez Hibernate, w³¹czaj¹c w to klasy z adnotacjami JPA @Entity i @MappedSuperClass 
-        oraz w³asn¹ adnotacj¹ Hibernate @Entity */ 
-        sfb.setPackagesToScan(new String[]{"spittr.domain"});
+        oraz w³asn¹ adnotacj¹ Hibernate @Entity */
+        //sfb.setPackagesToScan(new String[]{"spittr.domain"});
+        sfb.setAnnotatedClasses(Spitter.class);
         Properties props = new Properties();
         props.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
         /* ustawia szczegó³owe wytyczne dla Hibernate, tu informujemy ¿e bêdzie 

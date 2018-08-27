@@ -3,12 +3,14 @@ package spittr.config;
 import java.io.IOException;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -153,5 +155,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean 
     public MultipartResolver multipartResolver() throws IOException {
         return new StandardServletMultipartResolver(); 
+    }
+    
+    /* Umo¿liwia t³umaczenie wyj¹tków w niezawieraj¹cej szablonu klasie repozytorium 
+    Hibernate. Dodaje doradcê do ka¿dego oznaczonego adnotacj¹ Repository komponentu  */
+    @Bean
+    public BeanPostProcessor persistanceTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 }
