@@ -9,6 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import spittr.domain.Spitter;
 
 @Configuration
@@ -74,5 +78,34 @@ public class DataSourceConfiguration {
         wspó³pracowa³ z baz¹ MySQL */ 
         sfb.setHibernateProperties(props);
         return sfb;
+    }
+    
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        // ustawia typ u¿ywanej bazy. W tym przypadku MySQL
+        adapter.setDatabase(Database.MYSQL);
+        // okreœla czy pokazywaæ polecenia SQL w logach lub konsoli 
+        adapter.setShowSql(true);
+        /* okreœla czy generowaæ DDL po stworzeniu/uaktualnieniu wszystkich 
+        powi¹zanych tabel */
+        adapter.setGenerateDdl(false);
+        // okreœla nazwê na której platformie bazy danych wykonywane bêd¹ operacje 
+        adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+        return adapter;
+    }
+    
+    // Konfiguracja JPA zarz¹dzanego przez kontener 
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
+        /* Ustawia Ÿród³o danych. Jeœli u¿ywa siê pliku persistance.xml, ta metoda ma 
+        wy¿szy priorytet */
+        emfb.setDataSource(dataSource);
+        /* Okreœla szczegó³y implementacji JPA która ma byæ u¿ywana. Mo¿liwe adaptery 
+        dostawców: EclipseLinkJpaVendorAdapter, HibernateJpaVendorAdapter, 
+        OpenJpaVendorAdapter i TopLinkJpaVendorAdapter (przestarza³y w Spring 3.1) */
+        emfb.setJpaVendorAdapter(jpaVendorAdapter);
+        return emfb;
     }
 }
