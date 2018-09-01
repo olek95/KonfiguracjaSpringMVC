@@ -18,6 +18,7 @@ import spittr.data.SpitterRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spittr.dao.HibernateSpitterRepository;
+import spittr.dao.JpaSpitterRepository;
 
 @Controller 
 @RequestMapping("/spitter")
@@ -25,7 +26,7 @@ public class SpitterController {
     private SpitterRepository spitterRepository; 
     
     @Autowired 
-    public SpitterController(HibernateSpitterRepository spitterRepository) {
+    public SpitterController(JpaSpitterRepository spitterRepository) {
         this.spitterRepository = spitterRepository;
     }
     
