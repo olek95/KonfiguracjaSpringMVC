@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -163,14 +162,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public BeanPostProcessor persistanceTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
-    }
-    
-    /* Poni¿szy procesor jest potrzebny, poniewa¿ adnotacje PersistenceUnit i 
-    PersistenceContext s¹ dostarczane przez specyfikacjê JPA, a nie s¹ adnotacjami 
-    Springa. Dziêki temu obiektowi Spring potrafi zrozumieæ i wstrzykn¹æ fabrykê 
-    EntityManagerFactory lub EntityManager */
-    @Bean
-    public PersistenceAnnotationBeanPostProcessor paPostProcessor() {
-        return new PersistenceAnnotationBeanPostProcessor();
     }
 }
