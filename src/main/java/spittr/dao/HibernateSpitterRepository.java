@@ -1,5 +1,7 @@
 package spittr.dao;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -7,6 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spittr.domain.Spitter;
@@ -14,6 +18,7 @@ import spittr.data.SpitterRepository;
 
 @Repository
 @Transactional
+@Primary
 public class HibernateSpitterRepository implements SpitterRepository {
     SessionFactory sessionFactory;
     

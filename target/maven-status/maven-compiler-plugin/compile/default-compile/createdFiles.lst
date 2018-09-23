@@ -3,6 +3,7 @@ spittr\config\DataSourceConfiguration.class
 spittr\SpittleForm.class
 spittr\web\SpitterApplication.class
 spittr\dao\JdbcSpitterRepository.class
+spittr\config\CachingConfig.class
 spittr\config\SpittrWebAppInitializer.class
 spittr\dao\HibernateSpitterRepository.class
 spittr\web\AdministrationController.class

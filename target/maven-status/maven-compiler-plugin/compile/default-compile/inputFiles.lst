@@ -11,6 +11,7 @@ C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\config\DataSourceConfiguration.java
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\Spittle.java
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\web\DuplicateSpittleException.java
+C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\config\CachingConfig.java
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\config\SpittrWebAppInitializer.java
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\domain\Spitter.java
 C:\Users\olek1\Documents\SpringWAkcji\KonfiguracjaSpringMVC\src\main\java\spittr\web\SpittleController.java
